@@ -4,11 +4,11 @@ import BLOCKS from "./blocks.js";
 const playground = document.querySelector(".playground > ul");
 const gameText = document.querySelector(".game-text");
 const scoreDisplay = document.querySelector(".score");
+const comboDisplay = document.querySelector(".combo");
 const restartButton = document.querySelector(".game-text > button");
 //SETTING
 
 const GAME_ROWS = 20;
-
 const GAME_COLS = 10;
 
 // VARIABLES
@@ -17,6 +17,7 @@ let score = 0;
 let duration = 500;
 let downInterval;
 let tempMovingItem;
+let comboCount = 0;
 
 const movingItem = {
   type: "",
@@ -30,7 +31,6 @@ init();
 //FUNCTIONS
 function init() {
   tempMovingItem = { ...movingItem };
-
   for (let i = 0; i < GAME_ROWS; i++) {
     prependNewLine();
   }
@@ -102,11 +102,18 @@ function seizeBlock() {
     moving.classList.remove("moving");
     moving.classList.add("seized");
   });
-  checkMatch();
+  if (checkMatch()) {
+    comboCount++
+  } else {
+    comboCount = 0
+  }
+  comboDisplay.innerText = comboCount;
+  generateNewBlock();
 }
 
 function checkMatch() {
   const childNodes = playground.childNodes;
+  let flag = false
   childNodes.forEach((child) => {
     let matched = true;
     child.children[0].childNodes.forEach((li) => {
@@ -115,14 +122,18 @@ function checkMatch() {
       }
     });
     if (matched) {
+      flag = true
       child.remove();
       prependNewLine();
-      score++;
+      score += (100*(comboCount+1)**2);
       scoreDisplay.innerText = score;
-    }
+    } 
   });
-
-  generateNewBlock();
+  if (flag) {
+    return true
+  } else {
+    return false
+  }
 }
 
 function generateNewBlock() {
@@ -134,6 +145,7 @@ function generateNewBlock() {
   const blockArray = Object.entries(BLOCKS);
   const randomIndex = Math.floor(Math.random() * blockArray.length);
   movingItem.type = blockArray[randomIndex][0];
+  console.log(movingItem.type)
   movingItem.top = 0;
   movingItem.left = 3;
   movingItem.direction = 0;
@@ -181,6 +193,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 restartButton.addEventListener("click", () => {
+  comboDisplay.innerText = 0; 
+  scoreDisplay.innerText = 0;
   playground.innerHTML = "";
   gameText.style.display = "none";
   init();
