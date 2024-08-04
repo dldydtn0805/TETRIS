@@ -103,9 +103,9 @@ function seizeBlock() {
     moving.classList.add("seized");
   });
   if (checkMatch()) {
-    comboCount++
+    comboCount++;
   } else {
-    comboCount = 0
+    comboCount = 0;
   }
   comboDisplay.innerText = comboCount;
   generateNewBlock();
@@ -113,7 +113,7 @@ function seizeBlock() {
 
 function checkMatch() {
   const childNodes = playground.childNodes;
-  let flag = false
+  let flag = false;
   childNodes.forEach((child) => {
     let matched = true;
     child.children[0].childNodes.forEach((li) => {
@@ -122,18 +122,18 @@ function checkMatch() {
       }
     });
     if (matched) {
-      flag = true
+      flag = true;
       child.remove();
       prependNewLine();
-      let addToScore = comboCount === 0 ? 100 : 100*(comboCount)**2
+      let addToScore = comboCount === 0 ? 100 : 100 * comboCount ** 2;
       score += addToScore;
       scoreDisplay.innerText = score;
-    } 
+    }
   });
   if (flag) {
-    return true
+    return true;
   } else {
-    return false
+    return false;
   }
 }
 
@@ -146,7 +146,6 @@ function generateNewBlock() {
   const blockArray = Object.entries(BLOCKS);
   const randomIndex = Math.floor(Math.random() * blockArray.length);
   movingItem.type = blockArray[randomIndex][0];
-  console.log(movingItem.type)
   movingItem.top = 0;
   movingItem.left = 3;
   movingItem.direction = 0;
@@ -194,7 +193,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 restartButton.addEventListener("click", () => {
-  comboDisplay.innerText = 0; 
+  comboDisplay.innerText = 0;
   scoreDisplay.innerText = 0;
   playground.innerHTML = "";
   gameText.style.display = "none";
