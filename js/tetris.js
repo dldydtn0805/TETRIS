@@ -125,7 +125,8 @@ function checkMatch() {
       flag = true
       child.remove();
       prependNewLine();
-      score += (100*(comboCount+1)**2);
+      let addToScore = comboCount === 0 ? 100 : 100*(comboCount)**2
+      score += addToScore;
       scoreDisplay.innerText = score;
     } 
   });

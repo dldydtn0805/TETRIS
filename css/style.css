@@ -41,6 +41,12 @@ body {
   margin-bottom: 2rem;
 }
 
+.combo {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
 .playground > ul {
   border: 1px solid #333;
   width: 250px;
