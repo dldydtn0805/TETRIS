@@ -7,5 +7,6 @@
 - 위쪽 화살표는 블록 방향을 바꾼다
 - 아래쪽 화살표는 블록이 내려가는 속도를 올린다
 - 스페이스 바는 블록을 아래로 보낸다
+  
 ![image](https://github.com/user-attachments/assets/9f0f6235-e189-45d5-ba24-906837a96b8b)
 
